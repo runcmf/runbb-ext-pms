@@ -1,0 +1,46 @@
+{
+  "name": "runcmf/runbb-ext-pms",
+  "description": "Private message system for RunBB forum plugin",
+  "license": "Apache-2.0",
+  "type": "library",
+  "keywords": [
+    "RunCMF",
+    "RunBB",
+    "Slim3",
+    "Slim 3",
+    "pms",
+    "plugin"
+  ],
+  "authors": [
+    {
+      "name": "Vladimir",
+      "email": "1f7.wizard@gmail.com",
+      "homepage": "http://runcmf.ru"
+    }
+  ],
+  "require": {
+    "runcmf/runbb": "dev-master"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^2.8",
+    "phpunit/phpunit": "^6.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "RunBBPMS\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": [
+      "@phpunit",
+      "@phpcs"
+    ],
+    "phpunit": "php vendor/bin/phpunit",
+    "phpcs": "php vendor/bin/phpcs"
+  }
+}
