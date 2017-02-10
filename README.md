@@ -8,11 +8,11 @@ $ composer require runcmf/runbb-ext-pms:dev-master
 ```
 
 2.  
-add to setting.php into `plugins` section `'pms' => 'RunBBPMS\PrivateMessages'`  
+add to setting.php into `plugins` section `'pms' => 'RunPMS\PrivateMessages'`  
   like:
 ```php
     'plugins' => [// register plugins as NameSpace\InitInfoClass
-            'pms' => 'RunBBPMS\PrivateMessages'
+            'pms' => 'RunPMS\PrivateMessages'
         ],
 ```
 3.  

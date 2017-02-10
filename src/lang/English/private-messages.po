@@ -18,7 +18,7 @@ msgid "Folders"
 msgstr "Folders"
 
 msgid "PMS"
-msgstr "PrMeSa"
+msgstr "PMS"
 
 msgid "New"
 msgstr "Unread"

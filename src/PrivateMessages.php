@@ -7,7 +7,7 @@
  * License: http://www.gnu.org/licenses/gpl.html GPL version 2 or higher
  */
 
-namespace RunBBPMS;
+namespace RunPMS;
 
 use RunBB\Middleware\Logged;
 use RunBB\Core\Plugin;
@@ -80,23 +80,23 @@ class PrivateMessages extends Plugin
         Route::group('/forum/pms', function () {
 //        Route::group('/forum/conversations', function() {
             $this->map(['GET', 'POST'], '/inbox[/{inbox_id:[0-9]+}]',
-                '\RunBBPMS\Controller\PrivateMessages:index')->setName('Conversations.home');
+                '\RunPMS\Controller\PrivateMessages:index')->setName('Conversations.home');
             $this->map(['GET', 'POST'], '/inbox/{inbox_id:[0-9]+}/page/{page:[0-9]+}',
-                '\RunBBPMS\Controller\PrivateMessages:index')->setName('Conversations.home.page');
+                '\RunPMS\Controller\PrivateMessages:index')->setName('Conversations.home.page');
             $this->get('/thread/{tid:[0-9]+}',
-                '\RunBBPMS\Controller\PrivateMessages:show')->setName('Conversations.show');
+                '\RunPMS\Controller\PrivateMessages:show')->setName('Conversations.show');
             $this->get('/thread/{tid:[0-9]+}/page/{page:[0-9]+}',
-                '\RunBBPMS\Controller\PrivateMessages:show')->setName('Conversations.show.page');
+                '\RunPMS\Controller\PrivateMessages:show')->setName('Conversations.show.page');
             $this->map(['GET', 'POST'], '/send[/{uid:[0-9]+}]',
-                '\RunBBPMS\Controller\PrivateMessages:send')->setName('Conversations.send');
+                '\RunPMS\Controller\PrivateMessages:send')->setName('Conversations.send');
             $this->map(['GET', 'POST'], '/reply/{tid:[0-9]+}',
-                '\RunBBPMS\Controller\PrivateMessages:reply')->setName('Conversations.reply');
+                '\RunPMS\Controller\PrivateMessages:reply')->setName('Conversations.reply');
             $this->map(['GET', 'POST'], '/quote/{mid:[0-9]+}',
-                '\RunBBPMS\Controller\PrivateMessages:reply')->setName('Conversations.quote');
+                '\RunPMS\Controller\PrivateMessages:reply')->setName('Conversations.quote');
             $this->map(['GET', 'POST'], '/options/blocked',
-                '\RunBBPMS\Controller\PrivateMessages:blocked')->setName('Conversations.blocked');
+                '\RunPMS\Controller\PrivateMessages:blocked')->setName('Conversations.blocked');
             $this->map(['GET', 'POST'], '/options/folders',
-                '\RunBBPMS\Controller\PrivateMessages:folders')->setName('Conversations.folders');
+                '\RunPMS\Controller\PrivateMessages:folders')->setName('Conversations.folders');
         })->add(new Logged());
 
         View::addAsset(

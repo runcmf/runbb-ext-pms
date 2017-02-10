@@ -7,7 +7,7 @@
  * License: http://www.gnu.org/licenses/gpl.html GPL version 2 or higher
  */
 
-namespace RunBBPMS\Model;
+namespace RunPMS\Model;
 
 use RunBB\Exception\RunBBException;
 

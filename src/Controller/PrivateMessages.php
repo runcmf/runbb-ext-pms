@@ -7,7 +7,7 @@
  * License: http://www.gnu.org/licenses/gpl.html GPL version 2 or higher
  */
 
-namespace RunBBPMS\Controller;
+namespace RunPMS\Controller;
 
 use RunBB\Exception\RunBBException;
 use RunBB\Core\Url;
@@ -19,14 +19,15 @@ class PrivateMessages
 
     public function __construct()
     {
-        $this->model = new \RunBBPMS\Model\PrivateMessages();
+        $this->model = new \RunPMS\Model\PrivateMessages();
 
         Lang::load('private-messages', 'pms', __DIR__ . '/../lang');
 
         View::addTemplatesDirectory(dirname(dirname(__FILE__)) . '/Views', 5)
             ->setPageInfo(['active_page' => 'navextra1']);
+
         $this->crumbs = array(
-            Router::pathFor('Conversations.home') => d_('pms', 'PMS')
+            Router::pathFor('Conversations.home') => d__('pms', 'PMS')
         );
     }
 
