@@ -25,7 +25,6 @@ class PrivateMessages
 
         View::addTemplatesDirectory(dirname(dirname(__FILE__)) . '/Views', 5)
             ->setPageInfo(['active_page' => 'navextra1']);
-
         $this->crumbs = array(
             Router::pathFor('Conversations.home') => d__('pms', 'PMS')
         );

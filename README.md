@@ -3,22 +3,16 @@
 
 ## Install
 1.
-```php
-$ composer require runcmf/runbb-ext-pms:dev-master
-```
+go to Administration -> Plugins -> repo -> find `Private Messages` -> click `composer`    
 
-2.  
-add to setting.php into `plugins` section `'pms' => 'RunPMS\PrivateMessages'`  
-  like:
-```php
-    'plugins' => [// register plugins as NameSpace\InitInfoClass
-            'pms' => 'RunPMS\PrivateMessages'
-        ],
-```
-3.  
-go to Administration -> Plugins -> Private Messages -> Activate  
+in modal window click button with `require runcmf/runbb-ext-pms`  
 
+2.   
+after close modal, page refreshed and you see `Private Messages` marked as **installed**  
 
+go to Administration -> Plugins -> `Private Messages` -> `Activate`  
+
+---
 ## Recommendations
 
 * TODO
