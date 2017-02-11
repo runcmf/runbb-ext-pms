@@ -55,7 +55,7 @@ if (!empty($conversations)) { ?>
                                                 <?php } }?>
                                             </td>
                                             <td class="tc2"><?= (int) $conv['num_replies']?></td>
-                                            <td class="tcr"><?= ($conv['last_post'] ? '<a href="#">'.Utils::format_time($conv['last_post']).'</a>' : 'Never')?> <span class="byuser">by <a href="<?= Router::pathFor('userProfile', ['id' => 2])?>"><?= Utils::escape($conv['last_poster'])?></a></span></td>
+                                            <td class="tcr"><?= ($conv['last_post'] ? '<a href="#">'.Utils::timeFormat($conv['last_post']).'</a>' : 'Never')?> <span class="byuser">by <a href="<?= Router::pathFor('userProfile', ['id' => 2])?>"><?= Utils::escape($conv['last_poster'])?></a></span></td>
                                             <td class="tcmod"><input type="checkbox" name="topics[]" value="<?= $conv['id']; ?>" /></td>
                                         </tr>
             <?php

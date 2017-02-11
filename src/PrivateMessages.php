@@ -188,7 +188,7 @@ class PrivateMessages extends Plugin
         // Create tables
         $installer = new \RunBB\Model\Install();
         foreach ($database_scheme as $table => $sql) {
-            $installer->create_table(ForumSettings::get('db_prefix') . $table, $sql);
+            $installer->createTable(ForumSettings::get('db_prefix') . $table, $sql);
         }
 
         \ORM::for_table(ForumSettings::get('db_prefix') . 'groups')->raw_execute('ALTER TABLE ' .
@@ -210,7 +210,7 @@ class PrivateMessages extends Plugin
                 'name' => $folder,
                 'user_id' => 1,
             ];
-            $installer->add_data('pms_folders', $insert);
+            $installer->addData('pms_folders', $insert);
         }
         // copy assets to web dir
         Utils::recurseCopy(

@@ -111,11 +111,11 @@ class PrivateMessages
 
         // Update permissions
         if (Request::isPost()) {
-            return $this->model->update_permissions();
+            return $this->model->updatePermissions();
         }
         return View::setPageInfo(array(
                 'title' => array(Utils::escape(ForumSettings::get('o_board_title')), __('PMS', 'private_messages')),
-                'groups' => $this->model->fetch_groups(),
+                'groups' => $this->model->fetchGroups(),
                 'admin_console' => true,
             )
         )
@@ -295,7 +295,7 @@ class PrivateMessages
                     } else if (Utils::strlen($data['subject']) > 70) {
                         throw new  RunBBException('Too long subject', 400);
                     } else if (ForumSettings::get('p_subject_all_caps')['p_subject_all_caps'] == '0' &&
-                        Utils::is_all_uppercase($data['subject']) && !User::get()->is_admmod) {
+                        Utils::isAllUppercase($data['subject']) && !User::get()->is_admmod) {
                         throw new  RunBBException('All caps subject forbidden', 400);
                     }
                 }
@@ -310,7 +310,7 @@ class PrivateMessages
                 } else if (Utils::strlen($data['req_message']) > ForumEnv::get('FEATHER_MAX_POSTSIZE')) {
                     throw new  RunBBException('Too long message', 400);
                 } else if (ForumSettings::get('p_subject_all_caps')['p_subject_all_caps'] == '0' &&
-                    Utils::is_all_uppercase($data['subject']) && !User::get()->is_admmod) {
+                    Utils::isAllUppercase($data['subject']) && !User::get()->is_admmod) {
                     throw new  RunBBException('All caps message forbidden', 400);
                 }
 

@@ -474,8 +474,8 @@ class PrivateMessages
         return $result->delete();
     }
 
-
-    public function fetch_groups()
+    // FIXME look at model/admin/groups possible double
+    public function fetchGroups()
     {
         $result = \ORM::for_table(ORM_TABLE_PREFIX . 'groups')->order_by_asc('g_id')->find_many();
         $groups = [];
@@ -485,7 +485,8 @@ class PrivateMessages
         return $groups;
     }
 
-    public function update_permissions()
+    // FIXME possible double in model/admin/permissions
+    public function updatePermissions()
     {
         $form = array_map('intval', Request::getParsedBody());
         $form = Container::get('hooks')->fire('model.admin.permissions.plugins.private-messages.form', $form);

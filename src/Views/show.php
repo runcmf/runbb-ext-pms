@@ -21,14 +21,14 @@ if (!isset($feather)) {
                 foreach ($messages as $message) {
             ?>
             <div id="p<?= $message['id'] ?>" class="blockpost<?= ($message_count % 2 == 0) ? ' roweven' : ' rowodd' ?><?= ($message['id'] == $cur_conv['first_post_id']) ? ' firstpost' : ''; ?><?= ($message_count == 1) ? ' blockpost1' : ''; ?>">
-                <h2><span class="conr">#<?= ($start_from + $message_count) ?></span> <a href="<?= Router::pathFor('viewPost', ['pid' => $message['id']]).'#p'.$message['id'] ?>"><?= Utils::format_time($message['sent']) ?></a></h2>
+                <h2><span class="conr">#<?= ($start_from + $message_count) ?></span> <a href="<?= Router::pathFor('viewPost', ['pid' => $message['id']]).'#p'.$message['id'] ?>"><?= Utils::timeFormat($message['sent']) ?></a></h2>
                 <div class="box">
                     <div class="inbox">
                         <div class="postbody">
                             <div class="postleft">
                                 <dl>
                                     <dt><strong><a href="<?= Router::pathFor('userProfile', ['id' => $message['poster_id']]) ?>"><span><?= Utils::escape($message['username'])?></span></a></strong></dt>
-                                    <dd class="usertitle"><strong><?= Utils::get_title($message['title']) ?></strong></dd>
+                                    <dd class="usertitle"><strong><?= Utils::getTitle($message['title']) ?></strong></dd>
                                 </dl>
                             </div>
                             <div class="postright">

@@ -63,7 +63,7 @@ if (!isset($feather)) {
                                 <div class="postleft">
                                     <dl>
                                         <dt><strong><?= $msg['poster']?></strong></dt>
-                                        <dd><span><?= Utils::format_time($msg['sent'])?></span></dd>
+                                        <dd><span><?= Utils::timeFormat($msg['sent'])?></span></dd>
                                     </dl>
                                 </div>
                                 <div class="postright">
