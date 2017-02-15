@@ -1,0 +1,78 @@
+{% extends '@forum/layout.html.twig' %}
+
+{% block content %}
+
+    {% include '@pms/menu.html.twig' %}
+
+    {% if errors is not empty %}
+    <div id="msg" class="block error">
+        <h3>{{ transd(['pms', 'Block errors']) }}</h3>
+        <div>
+            <p>{{ transd(['pms', 'Block error info']) }}</p>
+            <ul class="error-list">
+                {% for error in errors %}
+                <li><strong>{{ error }}</strong></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <br />
+    {% endif %}
+    <div class="blockform">
+        <h2><span>{{ transd(['pms', 'Add folder']) }}</span></h2>
+        <div class="box">
+            <form id="folder" action="" method="post" onsubmit="return process_form(this)">
+                <input type="hidden" name="csrf_name" value="{{ csrf_name }}">
+                <input type="hidden" name="csrf_value" value="{{ csrf_value }}">
+                <div class="inform">
+                    <fieldset>
+                        <legend>{{ transd(['pms', 'Add folder']) }}</legend>
+                        <div class="infldset">
+                            <label>{{ transd(['pms', 'Folder name']) }}<br>
+                                <input type="text" name="req_folder" size="25" value="{{ (folder is defined) ? folder : '' }}" maxlength="30" tabindex="1" /><br />
+                            </label>
+                        </div>
+                    </fieldset>
+                </div>
+                <p class="buttons"><input type="submit" name="add_folder" value="Add" accesskey="s" /></p>
+            </form>
+
+        </div>
+        <?php
+
+        {% if folders is not empty %}
+        <h2 class="block2"><span>{{ transd(['pms', 'My Folders']) }}</span></h2>
+        <div class="box">
+            <form method="post" action="">
+                <input type="hidden" name="csrf_name" value="{{ csrf_name }}">
+                <input type="hidden" name="csrf_value" value="{{ csrf_value }}">
+                <div class="inform">
+                    <fieldset>
+                        <div class="infldset">
+                            <table cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th class="tcl" scope="col">{{ transd(['pms', 'Folder name']) }}</th>
+                                    <th class="hidehead" scope="col">{{ transd(['pms', 'Actions']) }}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for key, folder in folders %}
+                                <tr>
+                                    <td class="tcl"><input type="text" name="folder[{{ key }}]" value="{{ folder.name }}" size="24" maxlength="30" /></td>
+                                    <td><input type="submit" name="update_folder[{{ key }}]" value="Update" />&#160;
+                                        <input type="submit" name="remove_folder[{{ key }}]" value="Remove" onclick="return confirm('Are you sure?');" /></td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </fieldset>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+    <div class="clearer"></div>
+
+{% endblock content %}

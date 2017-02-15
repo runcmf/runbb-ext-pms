@@ -1,0 +1,100 @@
+{% extends '@forum/layout.html.twig' %}
+
+{% block content %}
+
+    {% include '@pms/menu.html.twig' %}
+
+    {% if conversations is not empty %}
+    <div class="block">
+        <form method="post" action="" id="topics">
+            <input type="hidden" name="csrf_name" value="{{ csrf_name }}">
+            <input type="hidden" name="csrf_value" value="{{ csrf_value }}">
+            <input type="hidden" name="p" value="1" />
+            <input type="hidden" name="inbox_id" value="{{ current_inbox_id }}" />
+            <div id="vf" class="blocktable">
+                <div class="box">
+                    <div class="inbox">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th class="tcl" scope="col">{{ trans('Title') }}</th>
+                                <th class="tc2" scope="col">{{ transd(['pms', 'Sender']) }}</th>
+                                <th class="tc2" scope="col">{{ transd(['pms', 'Receiver']) }}</th>
+                                <th class="tc2" scope="col">{{ trans('Replies') }}</th>
+                                <th class="tcr" scope="col">{{ trans('Last post') }}</th>
+                                <th class="tcmod" scope="col">
+                                    <a href="#" onclick="return select_checkboxes('topics', this, '<input type=\'checkbox\' checked />')"><input type="checkbox" /></a>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+            {% for conv in conversations %}
+                            <tr class="{{ count is even ? 'roweven ' : 'rowodd ' }}inew">
+                                <td class="tcl">
+                                    <div class="icon {{ conv.viewed ? 'icon-new' : '' }}"><div class="nosize">1</div></div>
+                                    <div class="tclcon">
+                                        <div>
+                                            <strong><a href="{{ pathFor('Conversations.show', {'tid': conv.id}) }}">
+                                                    {{ conv.subject }}</a></strong>
+                                            {{ conv.viewed ? '<span class="newtext">[ <a href="#" title="Go to the first new post in this topic.">New posts</a> ]</span>' : '' }}
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="tc2"><a href="{{ pathFor('userProfile', {'id': conv.poster_id}) }}"><span>
+                                            {{ conv.poster }}</span></a></td>
+                                <td class="tc2">
+                                    {% if conv.receivers is defined and conv.receivers is iterable %}
+                                        {% for uid, name in conv.receivers %}
+                                    <a href="{{ pathFor('userProfile', {'id': uid}) }}">
+                                        <span>{{ name }}</span>
+                                    </a>
+                                        {% endfor %}
+                                    {% endif %}
+                                </td>
+                                <td class="tc2">{{ conv.num_replies }}</td>
+                                <td class="tcr">
+                                    {{ conv.last_post ? ('<a href="#">' ~formatTime(conv.last_post) ~'</a>')|raw : 'Never' }}
+                                    <span class="byuser">by <a href="{{ pathFor('userProfile', {'id': 2}) }}">{{ conv.last_poster }}</a></span>
+                                </td>
+                                <td class="tcmod"><input type="checkbox" name="topics[]" value="{{ conv.id }}" /></td>
+                            </tr>
+            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="postlinksb">
+                <div class="inbox crumbsplus">
+                    <div class="pagepost">
+                        <p class="pagelink conl"><span class="pages-label">{{ trans('Pages') }}</span>{{ paging_links|raw }}</p>
+                        <p class="postlink conr">
+                            <select class="" name="action">
+                                <option value="-1" selected>{{ transd(['pms', 'Select action']) }}</option>
+                                <option value="move">{{ transd(['pms', 'Move']) }}</option>
+                                <option value="delete">{{ trans('Delete') }}</option>
+                                <option value="read">{{ transd(['pms', 'Mark read']) }}</option>
+                                <option value="unread">{{ transd(['pms', 'Mark unread']) }}</option>
+                            </select>
+                            <input type="submit" name="submit" value="{{ trans('Submit') }}" />
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    {% else %}
+    <div class="block">
+        <h2><span>{{ trans('Info') }}</span></h2>
+        <div class="box">
+            <div class="inbox info">
+                <p>{{ transd(['pms', 'Empty inbox']) }}</p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <div class="clearer"></div>
+
+{% endblock content %}

@@ -1,0 +1,39 @@
+{% extends '@forum/layout.html.twig' %}
+
+{% block content %}
+
+    {% include '@pms/menu.html.twig' %}
+
+    <div class="blockform">
+        <h2><span>{{ transd(['pms', 'Move conversations']) }}</span></h2>
+        <div class="box">
+            <form method="post" action="">
+                <input type="hidden" name="topics" value="{{ topics|join(',') }}" />
+                <input name="move_comply" value="1" type="hidden" />
+                <input name="action" value="move" type="hidden" />
+                <input type="hidden" name="csrf_name" value="{{ csrf_name }}">
+                <input type="hidden" name="csrf_value" value="{{ csrf_value }}">
+                <div class="inform">
+                    <fieldset>
+                        <legend>{{ trans('Move legend') }}</legend>
+                        <div class="infldset">
+                            <label>{{ trans('Move to') }}<br>
+                                <select name="move_to">
+                                    {% for key, inbox in inboxes %}
+                                    <option value="{{  key }}">{{ inbox.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </label>
+                        </div>
+                    </fieldset>
+                </div>
+                <p class="buttons"><input type="submit" name="move" value="{{ trans('Move') }}" />
+                    <a href="javascript:history.go(-1)">{{ trans('Go back') }}</a></p>
+            </form>
+        </div>
+    </div>
+
+    <div class="clearer"></div>
+
+
+{% endblock content %}
