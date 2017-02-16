@@ -67,8 +67,6 @@ class PrivateMessages extends Plugin
         $this->c['hooks']->bind('admin.plugin.menu', [$this, 'getAdminMenu']);
         $this->c['hooks']->bind('view.header.navlinks', [$this, 'addNavlink']);
         $this->c['hooks']->bind('model.print_posts.one', function ($cur_post) {
-//            $cur_post['user_contacts'][] = '<span class="email"><a href="'.
-//Router::pathFor('Conversations.send', ['uid' => $cur_post['poster_id']]).'">PM</a></span>';
             $cur_post['user_contacts'][] = '<span class="email"><a href="' .
                 $this->c['router']->pathFor(
                     'Conversations.send',
@@ -78,25 +76,49 @@ class PrivateMessages extends Plugin
         });
 
         Route::group('/forum/pms', function () {
-//        Route::group('/forum/conversations', function() {
-            $this->map(['GET', 'POST'], '/inbox[/{inbox_id:[0-9]+}]',
-                '\RunPMS\Controller\PrivateMessages:index')->setName('Conversations.home');
-            $this->map(['GET', 'POST'], '/inbox/{inbox_id:[0-9]+}/page/{page:[0-9]+}',
-                '\RunPMS\Controller\PrivateMessages:index')->setName('Conversations.home.page');
-            $this->get('/thread/{tid:[0-9]+}',
-                '\RunPMS\Controller\PrivateMessages:show')->setName('Conversations.show');
-            $this->get('/thread/{tid:[0-9]+}/page/{page:[0-9]+}',
-                '\RunPMS\Controller\PrivateMessages:show')->setName('Conversations.show.page');
-            $this->map(['GET', 'POST'], '/send[/{uid:[0-9]+}]',
-                '\RunPMS\Controller\PrivateMessages:send')->setName('Conversations.send');
-            $this->map(['GET', 'POST'], '/reply/{tid:[0-9]+}',
-                '\RunPMS\Controller\PrivateMessages:reply')->setName('Conversations.reply');
-            $this->map(['GET', 'POST'], '/quote/{mid:[0-9]+}',
-                '\RunPMS\Controller\PrivateMessages:reply')->setName('Conversations.quote');
-            $this->map(['GET', 'POST'], '/options/blocked',
-                '\RunPMS\Controller\PrivateMessages:blocked')->setName('Conversations.blocked');
-            $this->map(['GET', 'POST'], '/options/folders',
-                '\RunPMS\Controller\PrivateMessages:folders')->setName('Conversations.folders');
+            $this->map(
+                ['GET', 'POST'],
+                '/inbox[/{inbox_id:[0-9]+}]',
+                '\RunPMS\Controller\PrivateMessages:index'
+            )->setName('Conversations.home');
+            $this->map(
+                ['GET', 'POST'],
+                '/inbox/{inbox_id:[0-9]+}/page/{page:[0-9]+}',
+                '\RunPMS\Controller\PrivateMessages:index'
+            )->setName('Conversations.home.page');
+            $this->get(
+                '/thread/{tid:[0-9]+}',
+                '\RunPMS\Controller\PrivateMessages:show'
+            )->setName('Conversations.show');
+            $this->get(
+                '/thread/{tid:[0-9]+}/page/{page:[0-9]+}',
+                '\RunPMS\Controller\PrivateMessages:show'
+            )->setName('Conversations.show.page');
+            $this->map(
+                ['GET', 'POST'],
+                '/send[/{uid:[0-9]+}]',
+                '\RunPMS\Controller\PrivateMessages:send'
+            )->setName('Conversations.send');
+            $this->map(
+                ['GET', 'POST'],
+                '/reply/{tid:[0-9]+}',
+                '\RunPMS\Controller\PrivateMessages:reply'
+            )->setName('Conversations.reply');
+            $this->map(
+                ['GET', 'POST'],
+                '/quote/{mid:[0-9]+}',
+                '\RunPMS\Controller\PrivateMessages:reply'
+            )->setName('Conversations.quote');
+            $this->map(
+                ['GET', 'POST'],
+                '/options/blocked',
+                '\RunPMS\Controller\PrivateMessages:blocked'
+            )->setName('Conversations.blocked');
+            $this->map(
+                ['GET', 'POST'],
+                '/options/folders',
+                '\RunPMS\Controller\PrivateMessages:folders'
+            )->setName('Conversations.folders');
         })->add(new Logged());
 
         View::addAsset(
@@ -108,14 +130,13 @@ class PrivateMessages extends Plugin
 
     public function addNavlink($navlinks)
     {
-        //translate('private_messages', 'private-messages');
         // file, domain, path
         Lang::load('private-messages', 'pms', __DIR__ . '/lang');
         if (!User::get()->is_guest) {
             $nbUnread = Model\PrivateMessages::countUnread(User::get()->id);
             $count = ($nbUnread > 0) ? ' (' . $nbUnread . ')' : '';
-//            $navlinks[] = '4 = <a href="'.Router::pathFor('Conversations.home').'">PMS'.$count.'</a>';
-            $navlinks[] = '4 = <a href="' . $this->c['router']->pathFor('Conversations.home') . '">PMS' . $count . '</a>';
+            $navlinks[] = '4 = <a href="' . $this->c['router']->pathFor('Conversations.home') .
+                '">PMS' . $count . '</a>';
             if ($nbUnread > 0) {
                 Container::get('hooks')->bind('header.toplist', function ($toplists) {
                     $toplists[] = '<li class="reportlink"><span><strong><a href="' .
@@ -130,8 +151,7 @@ class PrivateMessages extends Plugin
 
     public function install()
     {
-//        Statical::addNamespace('*', __NAMESPACE__.'\\*');
-//        translate('private_messages', 'private-messages', ForumSettings::get('o_default_lang'));
+        Statical::addNamespace('*', __NAMESPACE__.'\\*');
         Lang::load('private-messages', 'pms', __DIR__ . '/lang');
 
         $database_scheme = [
@@ -184,7 +204,7 @@ class PrivateMessages extends Plugin
                 PRIMARY KEY (`id`)
             ) ENGINE=MyISAM DEFAULT CHARSET=utf8;"
         ];
-//tdie($database_scheme);
+
         // Create tables
         $installer = new \RunBB\Model\Install();
         foreach ($database_scheme as $table => $sql) {
@@ -200,9 +220,9 @@ class PrivateMessages extends Plugin
 
         // Create default inboxes
         $folders = [
-            __('New', 'private_messages'),
-            __('Inbox', 'private_messages'),
-            __('Archived', 'private_messages')
+            d__('pms', 'New'),
+            d__('pms', 'Inbox'),
+            d__('pms', 'Archived')
         ];
 
         foreach ($folders as $folder) {
@@ -221,21 +241,23 @@ class PrivateMessages extends Plugin
 
     public function remove()
     {
-//        Statical::addNamespace('*', __NAMESPACE__.'\\*');
+        Statical::addNamespace('*', __NAMESPACE__.'\\*');
 
         $db = \ORM::get_db();
         $tables = ['pms_data', 'pms_folders', 'pms_messages', 'pms_conversations', 'pms_blocks'];
         foreach ($tables as $i) {
-            $tableExists = \ORM::for_table(ForumSettings::get('db_prefix') . $i)->raw_query('SHOW TABLES LIKE "' .
-                ForumSettings::get('db_prefix') . $i . '"')->find_one();
+            $tableExists = \ORM::for_table(ForumSettings::get('db_prefix') . $i)
+                ->raw_query('SHOW TABLES LIKE "' . ForumSettings::get('db_prefix') . $i . '"')
+                ->find_one();
             if ($tableExists) {
                 $db->exec('DROP TABLE ' . ForumSettings::get('db_prefix') . $i);
             }
         }
         $columns = ['g_pm_limit', 'g_use_pm', 'g_pm_folder_limit'];
         foreach ($columns as $i) {
-            $columnExists = \ORM::for_table(ForumSettings::get('db_prefix') . 'groups')->raw_query('SHOW COLUMNS FROM ' .
-                ForumSettings::get('db_prefix') . 'groups LIKE \'' . $i . '\'')->find_one();
+            $columnExists = \ORM::for_table(ForumSettings::get('db_prefix') . 'groups')
+                ->raw_query('SHOW COLUMNS FROM ' . ForumSettings::get('db_prefix') . 'groups LIKE \'' . $i . '\'')
+                ->find_one();
             if ($columnExists) {
                 $db->exec('ALTER TABLE ' . ForumSettings::get('db_prefix') . 'groups DROP COLUMN ' . $i);
             }
@@ -245,5 +267,4 @@ class PrivateMessages extends Plugin
             $this->c['forum_env']['WEB_ROOT'] . $this->c['forum_env']['WEB_PLUGINS'].'/'.self::NAME
         );
     }
-
 }
