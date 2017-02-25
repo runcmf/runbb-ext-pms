@@ -1,6 +1,15 @@
 
     <div id="adminconsole" class="block2col">
         <div id="adminmenu" class="blockmenu">
+            <h2><span><a href="{{ pathFor('Conversations.send') }}">{{ transd(['pms', 'Send']) }}</a></span></h2>
+            <div class="box">
+                <div class="inbox">
+                    <ul>
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+
             <h2><span>{{ transd(['pms', 'Folders']) }}</span></h2>
             <div class="box">
                 <div class="inbox">
@@ -17,6 +26,7 @@
                     </ul>
                 </div>
             </div>
+
             <h2><span>{{ transd(['pms', 'Storage']) }}</span></h2>
             <div class="box">
                 <div class="inbox">
@@ -27,7 +37,7 @@
                     </ul>
                 </div>
             </div>
-            <br />
+
             <h2><span>{{ transd(['pms', 'Options']) }}</span></h2>
             <div class="box">
                 <div class="inbox">

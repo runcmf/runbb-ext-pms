@@ -129,7 +129,7 @@ msgid "No folder name"
 msgstr "Please provide a valid name for your folder"
 
 msgid "Folder too short"
-msgstr "The name of a folder should contain at least 2 characters"
+msgstr "The name of a folder should contain at least 4 characters"
 
 msgid "Folder too long"
 msgstr "The name of a folder should contain at most 30 characters"

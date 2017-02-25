@@ -15,22 +15,22 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 
 msgid "Folders"
-msgstr "Folders"
+msgstr "Папки"
 
 msgid "PMS"
 msgstr "Личные сообщения"
 
 msgid "New"
-msgstr "Unread"
+msgstr "Непрочитанные"
 
 msgid "Inbox"
-msgstr "Inbox"
+msgstr "Входящие"
 
 msgid "Archived"
-msgstr "Archived"
+msgstr "Архив"
 
 msgid "Storage"
-msgstr "Storage"
+msgstr "Хранилище"
 
 msgid "Options"
 msgstr "Опции"
@@ -39,112 +39,112 @@ msgid "Wrong folder owner"
 msgstr "You don't own this inbox"
 
 msgid "Send"
-msgstr "New conversation"
+msgstr "Новое сообщение"
 
 msgid "Send success"
-msgstr "Your PM has been sent to %s !"
+msgstr "Ваше сообщение отправлено пользователю: %s !"
 
 msgid "Reply"
-msgstr "Reply to conversation"
+msgstr "Ответ на сообщение"
 
 msgid "Reply success"
-msgstr "You have successfully replied to the conversation %s !"
+msgstr "Вы успешно ответили пользователю: %s !"
 
 msgid "No conv selected"
-msgstr "Select more than one conversations"
+msgstr "Выберите хотябы одно сообщение"
 
 msgid "Conversations deleted"
-msgstr "Conversations deleted"
+msgstr "Сообщение удалено"
 
 msgid "Conversations moved"
-msgstr "Conversations moved"
+msgstr "Сообщение перемещено"
 
 msgid "Error move"
-msgstr "Error while moving conversations"
+msgstr "Ошибка перемещения"
 
 msgid "Unread messages"
-msgstr "You have unread private messages"
+msgstr "У Вас есть непрочитанные сообщения"
 
 msgid "Confirm delete"
-msgstr "Are you sure you want to delete these conversations ? This operation cannot be undone."
+msgstr "Вы уверены, что хотите удалить сообщение? Сообщение будет не возможно восстановить."
 
 msgid "My conversations"
-msgstr "My conversations"
+msgstr "Мои сообщения"
 
 msgid "Move conversations"
-msgstr "Move conversations"
+msgstr "Переместить сообщения"
 
 msgid "Select move destination"
-msgstr "Select the folder you want to move conversations to."
+msgstr "Выберете папку куда переместить сообщение."
 
 msgid "Empty inbox"
-msgstr "You have no conversations in this inbox."
+msgstr "В этой папке нет сообщений."
 
 msgid "Blocked Users"
-msgstr "Blocked Users"
+msgstr "Блокированные"
 
 msgid "Add block"
-msgstr "Add block"
+msgstr "Заблокировать"
 
 msgid "Add block legend"
-msgstr "Block a user"
+msgstr "Заблокировать"
 
 msgid "No block self"
-msgstr "You cannot block yourself!"
+msgstr "Вы не можете заблокировать самого себя!"
 
 msgid "No user name message"
-msgstr "The user %s does not exist."
+msgstr "Пользователь %s не найден."
 
 msgid "User is admin message"
-msgstr "The user %s is an administrator and can't be blocked."
+msgstr "Пользователь %s администратор и не может быть заблокирован."
 
 msgid "User is mod message"
-msgstr "The user %s is a moderator and can't be blocked."
+msgstr "Пользователь %s модератор и не может быть заблокирован."
 
 msgid "Already blocked"
-msgstr "You already blocked the user %s."
+msgstr "Вы уже заблокировали %s."
 
 msgid "Block added"
-msgstr "Block added."
+msgstr "Блокировка добавлена."
 
 msgid "Block removed"
-msgstr "Block removed."
+msgstr "Блокировка удалена."
 
 msgid "Block errors"
-msgstr "Block errors."
+msgstr "Ошибка блокировки."
 
 msgid "Block error info"
-msgstr "The following errors need to be corrected before the user can be blocked:"
+msgstr "Перед отправкой сообщения следующие ошибки должны быть исправлены:"
 
 msgid "My Folders"
-msgstr "My Folders"
+msgstr "Мои папки"
 
 msgid "Add folder"
-msgstr "Add folder"
+msgstr "Добавить папку"
 
 msgid "Folder name"
-msgstr "Folder name"
+msgstr "Название папки"
 
 msgid "No folder name"
-msgstr "Please provide a valid name for your folder"
+msgstr "Введите корректное название папки"
 
 msgid "Folder too short"
-msgstr "The name of a folder should contain at least 2 characters"
+msgstr "Название папки должно быть минимум 4 символа"
 
 msgid "Folder too long"
-msgstr "The name of a folder should contain at most 30 characters"
+msgstr "Название папки может быть длиной до 30 символов"
 
 msgid "No folder after censoring"
-msgstr "The folder name contains censored words"
+msgstr "Название содержить запрещенные слова"
 
 msgid "Folder limit"
 msgstr "You cannot create other folders"
 
 msgid "Folder added"
-msgstr "Folder added"
+msgstr "Папка добавлена"
 
 msgid "Conv review"
-msgstr "Conversation review (newest first)"
+msgstr "Просмотр сообщений (новые первые)"
 
 msgid "Mark read"
 msgstr "Отметить прочитанными"

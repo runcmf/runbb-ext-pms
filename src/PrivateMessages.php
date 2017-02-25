@@ -49,14 +49,35 @@ class PrivateMessages extends Plugin
         return json_encode($cfg);
     }
 
-    public static function adminMenu()
+    public static function adminMenu(\RunBB\Helpers\Menu\MenuCollection & $menu)
     {
         Lang::load('private-messages', 'pms', __DIR__ . '/lang');
 
-        return [
-            'url' => 'pms',
-            'name' => d__('pms', 'PMS')
-        ];
+        // example one level menu:
+        $pms = $menu->createItem('admin-pms', [
+            'label' => d__('pms', 'PMS'),
+            'icon'  => 'envelope fa-lg',
+            'url'   => Router::pathFor('infoPlugin', ['name' => 'pms'])
+        ]);
+/*
+        // example more one level menu:
+        $pms = $menu->createItem('admin-pms', [
+            'label' => d__('pms', 'PMS'),
+            'icon'  => 'envelope fa-lg',
+            'url'   => '#'
+        ]);
+        $pms->setAttribute('class', 'nav nav-second-level');
+
+        $next1 = $menu->createItem('nextLevel1', [
+            'label' => __('Users'),
+            'icon'  => 'thumbs-up fa-lg',
+            'url'   => Router::pathFor('infoPlugin', ['name' => 'pms'])
+        ]);
+        $pms->addChildren('next1', $next1);
+*/
+        // common for any one or more one levels menu
+        $menu->addItem('admin-pms', $pms);
+
     }
 
     public function run()
@@ -71,11 +92,11 @@ class PrivateMessages extends Plugin
                 $this->c['router']->pathFor(
                     'Conversations.send',
                     ['uid' => $cur_post['poster_id']]
-                ) . '">PM</a></span>';
+                ) . '" title="PM"><i class="fa fa-folder-o fa-lg" aria-hidden="true"></i></a></span>';
             return $cur_post;
         });
 
-        Route::group('/forum/pms', function () {
+        Route::group(Router::pathFor('home') . '/pms', function () {
             $this->map(
                 ['GET', 'POST'],
                 '/inbox[/{inbox_id:[0-9]+}]',
@@ -141,7 +162,7 @@ class PrivateMessages extends Plugin
                 Container::get('hooks')->bind('header.toplist', function ($toplists) {
                     $toplists[] = '<li class="reportlink"><span><strong><a href="' .
                         Router::pathFor('Conversations.home', ['inbox_id' => 1]) . '">'
-                        . __('Unread messages', 'private_messages') . '</a></strong></span></li>';
+                        . d__('pms', 'Unread messages') . '</a></strong></span></li>';
                     return $toplists;
                 });
             }

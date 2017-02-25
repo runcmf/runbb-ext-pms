@@ -1,0 +1,75 @@
+{% extends '@forum/layout.html.twig' %}
+
+{% block content %}
+
+    {% include '@pms/menu.html.twig' %}
+
+        <div id="postform" class="blockform">
+            <h2><span>{{ trans('pms', 'Reply') }}{{ conv.subject is not empty ? conv.subject : '' }}</span></h2>
+            <div class="box">
+                <form id="post" method="post" action="" onsubmit="return process_form(this)">
+                    <div class="inform">
+                        <fieldset>
+                            <legend>{{  trans('Write message legend') }}</legend>
+                            <div class="infldset txtarea">
+                                <input type="hidden" name="csrf_name" value="{{ csrf_name }}">
+                                <input type="hidden" name="csrf_value" value="{{ csrf_value }}">
+                                <label class="required"><strong>{{  trans('Message') }} <span>{{  trans('Required') }}</span></strong><br /></label>
+                                <textarea name="req_message" id="req_message" rows="20" cols="95" tabindex="2" required autofocus>{{ message|raw }}</textarea><br />
+                                <ul class="bblinks">
+                                    <li><span><a href="{{ pathFor('help') }}#bbcode" onclick="window.open(this.href); return false;">{{  trans('BBCode') }}</a> {{ settings('p_message_bbcode') == '1' ? trans('on') : trans('off') }}</span></li>
+                                    <li><span><a href="{{ pathFor('help') }}#url" onclick="window.open (this.href); return false;">{{ trans('url tag') }}</a> {{ settings('p_message_bbcode') == '1' and userGet('g_post_links') == '1') ? trans('on') : trans('off') }}</span></li>
+                                    <li><span><a href="{{ pathFor('help') }}#img" onclick="window.open(this.href); return false;">{{ trans('img tag') }}</a> {{ settings('p_message_bbcode') == '1' and settings('p_message_img_tag') == '1') ? trans('on') : trans('off') }}</span></li>
+                                    <li><span><a href="{{ pathFor('help') }}#smilies" onclick="window.open(this.href); return false;">{{ trans('Smilies') }}</a> {{ settings('o_smilies') == '1') ? trans('on') : trans('off') }}</span></li>
+                                </ul>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="inform">
+                        <fieldset>
+                            <legend>{{  trans('Options') }}</legend>
+                            <div class="infldset">
+                                <div class="rbox">
+                                    <label><input type="checkbox" name="smilies" value="1" tabindex="3" />{{  trans('Hide smilies') }}<br /></label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <p class="buttons">
+                        <input type="submit" name="submit" value="{{  trans('Submit') }}" tabindex="4" accesskey="s" />
+                        {#<input type="submit" name="preview" value="{{  trans('Preview') }}" tabindex="5" accesskey="p" /> #}
+                        <a href="javascript:history.go(-1)">{{  trans('Go back') }}</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+
+    {% if msg_data is not empty %}
+        <div id="postreview">
+            <h2><span>{{  trans('pms', 'Conv review') }}</span></h2>
+            {% for msg in msg_data %}
+                <div id="p{{ msg.id }}" class="blockpost{{ loop.index % 2 == 0 ? ' roweven' : ' rowodd' }}">
+                    <div class="box roweven">
+                        <div class="inbox">
+                            <div class="postbody">
+                                <div class="postleft">
+                                    <dl>
+                                        <dt><strong>{{ msg.poster }}</strong></dt>
+                                        <dd><span>{{ formatTime(msg.sent) }}</span></dd>
+                                    </dl>
+                                </div>
+                                <div class="postright">
+                                    <div class="postmsg">
+                                        <p>{{ msg.message }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearer"></div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+{% endblock content %}
