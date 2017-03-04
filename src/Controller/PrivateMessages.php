@@ -115,7 +115,7 @@ class PrivateMessages
                 User::get()['disp_topics'],
                 $start_from
             )
-        ])->addTemplate('@pms/index')->display();
+        ])->display('@pms/index');
     }
 
 
@@ -132,8 +132,7 @@ class PrivateMessages
             'title' => [Utils::escape(ForumSettings::get('o_board_title')), d__('pms', 'PMS')],
             'groups' => $this->model->fetchGroups(),
             'admin_console' => true,
-        ])
-            ->addTemplate('@pms/info')->display();
+        ])->display('@pms/info');
     }
 
     public function delete($req, $res, $args)
@@ -165,8 +164,7 @@ class PrivateMessages
                     d__('pms', 'PMS')
                 ],
                 'topics' => $topics,
-            ])
-                ->addTemplate('@pms/delete')->display();
+            ])->display('@pms/delete');
         }
     }
 
@@ -207,8 +205,7 @@ class PrivateMessages
                 ],
                 'topics' => $topics,
                 'inboxes' => $inboxes,
-            ])
-                ->addTemplate('@pms/move')->display();
+            ])->display('@pms/move');
         } else {
             throw new RunBBException('No inboxes', 404);
         }
@@ -288,7 +285,7 @@ class PrivateMessages
                     'username' => Utils::escape($data['username']),
                     'subject' => Utils::escape($data['subject']),
                     'message' => Utils::escape($data['req_message'])
-                ])->addTemplate('@pms/send')->display();
+                ])->display('@pms/send');
             } else {
                 // Prevent flood
                 if (!is_null($data['preview']) && User::get()['last_post'] != '' &&
@@ -425,7 +422,7 @@ class PrivateMessages
                         'current_inbox' => $inbox,
                         'conv' => $conv,
                         'msg_data' => $this->model->getMessagesFromConversation($args['tid'], User::get()->id, 5)
-                    ])->addTemplate('@pms/reply')->display();
+                    ])->display('@pms/reply');
                 } else {
                     throw new RunBBException('Unknown conversation ID', 400);
                 }
@@ -442,7 +439,7 @@ class PrivateMessages
                     Utils::escape(ForumSettings::get('o_board_title')),
                     d__('pms', 'PMS'), d__('pms', 'Send')
                 ],
-            ])->addTemplate('@pms/send')->display();
+            ])->display('@pms/send');
         }
     }
 
@@ -516,8 +513,7 @@ class PrivateMessages
                 'text' => d__('pms', 'Reply')
             ],
             'messages' => $this->model->getMessages($conv['id'], User::get()['disp_topics'], $start_from)
-        ])
-            ->addTemplate('@pms/show')->display();
+        ])->display('@pms/show');
     }
 
     public function blocked($req, $res, $args)
@@ -589,8 +585,7 @@ class PrivateMessages
             'username' => $username,
             'required_fields' => ['req_username' => d__('pms', 'Add block')],
             'blocks' => $this->model->getBlocked(User::get()->id),
-        ])
-            ->addTemplate('@pms/blocked')->display();
+        ])->display('@pms/blocked');
     }
 
     public function folders($req, $res, $args)
@@ -699,8 +694,7 @@ class PrivateMessages
             'admin_console' => true,
             'errors' => $errors,
             'folders' => array_diff_key($this->inboxes, [1, 2, 3, 4])
-        ])
-            ->addTemplate('@pms/folders')->display();
+        ])->display('@pms/folders');
     }
 
     public function generateMenu($page = '')
