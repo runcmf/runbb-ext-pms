@@ -4,8 +4,6 @@
 
     {% include '@pms/menu.html.twig' %}
 
-    {% include '@forum/breadcrumbs.html.twig' %}
-
     {% if conversations is not empty %}
     <div class="block">
         <form method="post" action="" id="topics">
@@ -32,7 +30,7 @@
                             <tbody>
 
             {% for conv in conversations %}
-                            <tr class="{{ count is even ? 'roweven ' : 'rowodd ' }}inew">
+                            <tr class="{{ loop.index is even ? 'roweven ' : 'rowodd ' }}inew">
                                 <td class="tcl">
                                     <div class="icon {{ conv.viewed ? 'icon-new' : '' }}"><div class="nosize">1</div></div>
                                     <div class="tclcon">

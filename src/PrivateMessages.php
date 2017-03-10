@@ -229,15 +229,15 @@ class PrivateMessages extends Plugin
         // Create tables
         $installer = new \RunBB\Model\Install();
         foreach ($database_scheme as $table => $sql) {
-            $installer->createTable(ForumSettings::get('db_prefix') . $table, $sql);
+            $installer->createTable(DB::prefix() . $table, $sql);
         }
 
-        \ORM::for_table(ForumSettings::get('db_prefix') . 'groups')->raw_execute('ALTER TABLE ' .
-            ForumSettings::get('db_prefix') . 'groups ADD `g_pm_limit` smallint(3) NOT NULL DEFAULT \'0\'');
-        \ORM::for_table(ForumSettings::get('db_prefix') . 'groups')->raw_execute('ALTER TABLE ' .
-            ForumSettings::get('db_prefix') . 'groups ADD `g_use_pm` tinyint(1) NOT NULL DEFAULT \'0\'');
-        \ORM::for_table(ForumSettings::get('db_prefix') . 'groups')->raw_execute('ALTER TABLE ' .
-            ForumSettings::get('db_prefix') . 'groups ADD `g_pm_folder_limit` int(3) NOT NULL DEFAULT \'0\'');
+        DB::forTable('groups')->raw_execute('ALTER TABLE ' .
+            DB::prefix() . 'groups ADD `g_pm_limit` smallint(3) NOT NULL DEFAULT \'0\'');
+        DB::forTable('groups')->raw_execute('ALTER TABLE ' .
+            DB::prefix() . 'groups ADD `g_use_pm` tinyint(1) NOT NULL DEFAULT \'0\'');
+        DB::forTable('groups')->raw_execute('ALTER TABLE ' .
+            DB::prefix() . 'groups ADD `g_pm_folder_limit` int(3) NOT NULL DEFAULT \'0\'');
 
         // Create default inboxes
         $folders = [
@@ -267,20 +267,20 @@ class PrivateMessages extends Plugin
         $db = \ORM::get_db();
         $tables = ['pms_data', 'pms_folders', 'pms_messages', 'pms_conversations', 'pms_blocks'];
         foreach ($tables as $i) {
-            $tableExists = \ORM::for_table(ForumSettings::get('db_prefix') . $i)
-                ->raw_query('SHOW TABLES LIKE "' . ForumSettings::get('db_prefix') . $i . '"')
+            $tableExists = DB::forTable($i)
+                ->raw_query('SHOW TABLES LIKE "' . DB::prefix() . $i . '"')
                 ->find_one();
             if ($tableExists) {
-                $db->exec('DROP TABLE ' . ForumSettings::get('db_prefix') . $i);
+                $db->exec('DROP TABLE ' . DB::prefix() . $i);
             }
         }
         $columns = ['g_pm_limit', 'g_use_pm', 'g_pm_folder_limit'];
         foreach ($columns as $i) {
-            $columnExists = \ORM::for_table(ForumSettings::get('db_prefix') . 'groups')
-                ->raw_query('SHOW COLUMNS FROM ' . ForumSettings::get('db_prefix') . 'groups LIKE \'' . $i . '\'')
+            $columnExists = DB::forTable('groups')
+                ->raw_query('SHOW COLUMNS FROM ' . DB::prefix() . 'groups LIKE \'' . $i . '\'')
                 ->find_one();
             if ($columnExists) {
-                $db->exec('ALTER TABLE ' . ForumSettings::get('db_prefix') . 'groups DROP COLUMN ' . $i);
+                $db->exec('ALTER TABLE ' . DB::prefix() . 'groups DROP COLUMN ' . $i);
             }
         }
 

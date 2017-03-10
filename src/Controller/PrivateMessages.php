@@ -413,7 +413,8 @@ class PrivateMessages
                     throw new RunBBException('Wrong conversation ID', 400);
                 }
                 if ($conv = $this->model->getConversation($args['tid'], User::get()->id)) {
-                    $inbox = \ORM::for_table(ORM_TABLE_PREFIX . 'pms_folders')->find_one($conv->folder_id);
+                    $inbox = DB::forTable('pms_folders')
+                        ->findOne($conv->folder_id);
                     $this->crumbs[Router::pathFor('Conversations.home', ['inbox_id' => $inbox['id']])] = $inbox['name'];
                     $this->crumbs[] = d__('pms', 'Reply');
                     $this->crumbs[] = $conv['subject'];
