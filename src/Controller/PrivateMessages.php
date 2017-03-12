@@ -79,7 +79,7 @@ class PrivateMessages
         $paging_links = Url::paginate(
             $num_pages,
             $p,
-            Router::pathFor('Conversations.home', ['id' => $args['inbox_id']]) . '/#'
+            Init::$uri . '/' . Router::pathFor('Conversations.home', ['id' => $args['inbox_id']]) . '/#'
         );
 
         // Make breadcrumbs
@@ -482,7 +482,7 @@ class PrivateMessages
         $paging_links = Url::paginate(
             $num_pages,
             $p,
-            Router::pathFor('Conversations.show', ['tid' => $args['tid']]) . '/#'
+            Init::$uri . '/' . Router::pathFor('Conversations.show', ['tid' => $args['tid']]) . '/#'
         );
 
         $this->inboxes = $this->model->getInboxes(User::get()->id);
